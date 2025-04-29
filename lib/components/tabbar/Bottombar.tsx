@@ -40,7 +40,6 @@ export const Bottombar = ({ setPathname, pathname }: BottombarProps
         },
         selectedIcon: {
             color: theme.background,
-
             backgroundColor: theme.navbarselectedPage,
             borderRadius: 16,
             top: -20,
@@ -72,12 +71,17 @@ export const Bottombar = ({ setPathname, pathname }: BottombarProps
 
         setPathname('calendar')
     }
+    const changeSearchPage = () => {
 
+        setPathname('search')
+    }
     return (
 
         <View style={styles.container} >
             <TouchableOpacity onPress={changeHomePage} style={pathname === 'home' ? styles.selectedIcon : null}  ><FontAwesome name="home" style={styles.iconStyle} /></TouchableOpacity>
             <TouchableOpacity onPress={changeCalendarPage} style={pathname === 'calendar' ? styles.selectedIcon : null} ><FontAwesome name="calendar" style={styles.iconStyle} /></TouchableOpacity>
+            <TouchableOpacity onPress={changeSearchPage} style={pathname === 'search' ? styles.selectedIcon : null} ><FontAwesome name="search" style={styles.iconStyle} /></TouchableOpacity>
+
         </View>
     );
 };

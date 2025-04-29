@@ -6,7 +6,8 @@ export const lightTheme = {
     text: '#000000',
     buttonBackground: '#ff6347',
     buttonText: '#fff',
-    navbarselectedPage: 'rgba(169, 181, 220, 0.6)'
+    navbarselectedPage: 'rgba(169, 181, 220, 0.6)',
+    newsbg: 'rgb(230, 210, 166)'
 };
 
 export const darkTheme = {
@@ -14,7 +15,8 @@ export const darkTheme = {
     text: '#ffffff',
     buttonBackground: '#6200ea',
     buttonText: '#fff',
-    navbarselectedPage: 'rgba(165, 188, 196, 0.8)'
+    navbarselectedPage: 'rgba(165, 188, 196, 0.8)',
+    newsbg: 'rgb(73, 78, 80)'
 };
 
 // Stil oluşturma fonksiyonu

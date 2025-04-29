@@ -38,13 +38,45 @@ const MainPage = () => {
         categoryImage: { width: 100, height: 100, borderRadius: 10, marginBottom: 10 },
         categoryText: { fontSize: 16, fontWeight: '600' },
         newsList: { paddingBottom: 30 },
-        newsCard: { flexDirection: 'row', borderRadius: 10, marginBottom: 20, padding: 10 },
-        newsImage: { width: 100, height: 100, borderRadius: 10, marginRight: 10 },
-        newsTextContainer: { flex: 1, justifyContent: 'center' },
-        newsTitle: { fontSize: 18, fontWeight: 'bold' },
-        newsDescription: { fontSize: 14, marginVertical: 5 },
-        newsSource: { fontSize: 12 },
-        newsDate: { fontSize: 12 },
+        newsCard: {
+            borderRadius: 12,
+            overflow: 'hidden',
+            marginBottom: 20,
+            backgroundColor: theme.newsbg,
+            elevation: 3,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.2,
+            shadowRadius: 4,
+        },
+        newsImage: {
+            width: '100%',
+            height: 180,
+        },
+        newsTextContainer: {
+            padding: 10,
+            backgroundColor: theme.newsbg,
+        },
+        newsTitle: {
+            fontSize: 18,
+            fontWeight: 'bold',
+            color: theme.text,
+            marginBottom: 4,
+        },
+        newsDescription: {
+            fontSize: 14,
+            color: theme.text,
+            marginBottom: 4,
+        },
+        newsSource: {
+            fontSize: 12,
+            color: theme.text,
+        },
+        newsDate: {
+            fontSize: 12,
+            color: theme.text,
+            marginBottom: 4,
+        },
         linkButton: { backgroundColor: theme.buttonBackground, padding: 10 },
     });
 
@@ -75,7 +107,13 @@ const MainPage = () => {
 
     const renderNewsItem = ({ item }: any) => (
         <View style={[styles.newsCard, { backgroundColor: theme.background }]}>
-            <Image source={{ uri: item.image }} style={styles.newsImage} />
+            {item.image ? (
+                <Image source={{ uri: item.image }} style={styles.newsImage} />
+            ) : (
+                <View style={[styles.newsImage, { backgroundColor: '#ccc', justifyContent: 'center', alignItems: 'center' }]}>
+                    <Text>Resim Yok</Text>
+                </View>
+            )}
             <View style={styles.newsTextContainer}>
                 <Text style={[styles.newsTitle, { color: theme.text }]}>{item.title}</Text>
                 <Text style={[styles.newsDescription, { color: theme.text }]}>{item.description}</Text>

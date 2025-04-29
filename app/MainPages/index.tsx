@@ -6,6 +6,8 @@ import Bottombar from '@/lib/components/tabbar/Bottombar';
 import Calendar from './Calendar';  // Calendar ekranını import et
 import Main from './Main';  // Main ekranını import et
 import { lightTheme, darkTheme } from '@/app/styles';
+import DateNewsPage from './Calendar';
+import SearchPage from './search';
 export default function MainLayout() {
 
     const scheme = useColorScheme();
@@ -26,7 +28,9 @@ export default function MainLayout() {
             <View style={styles.stackContainer}>
                 {/* Sayfalar burada render edilecek */}
                 {pathname == 'home' && <Main ></Main>}
-                {pathname === 'calendar' && <Calendar />}  {/* Calendar ekranını render et */}
+                {pathname === 'calendar' && <DateNewsPage />}
+                {pathname == 'search' && <SearchPage></SearchPage>}
+                {/* Calendar ekranını render et */}
             </View>
 
             {/* BottomBar her zaman ekranın alt kısmında görünecek */}

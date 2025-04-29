@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAllNews, getFinanceNews, getNewsByDate, getSPORTSNews } from '@/services/allNewsService';
+import { getAllNews, getFinanceNews, getNewsByDate, getNewsWithRoot, getSPORTSNews } from '@/services/allNewsService';
 
 export const useNews = (page: number) => {
     return useQuery({
@@ -28,7 +28,12 @@ export const useNewsByDate = (page: number, date: string) => {
         queryFn: () => getNewsByDate(page, date).then(res => res.data),
     });
 };
-
+export const useNewsWithHook = (input: string) => {
+    return useQuery({
+        queryKey: ['newsByDate', input], // 
+        queryFn: () => getNewsWithRoot(input).then(res => res.data),
+    });
+};
 
 
 

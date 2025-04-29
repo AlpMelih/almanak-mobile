@@ -13,3 +13,9 @@ export const getSPORTSNews = (page: number) => {
 export const getNewsByDate = (page: number, date: string) => {
     return apiClient.get(`/news/by-date/${date}/${page}`);
 };
+
+export const getNewsWithRoot = (text: string) => {
+    return apiClient.get('/news/similar', {
+        params: { text } // Sending 'text' as a query parameter
+    });
+};

@@ -1,8 +1,9 @@
+import { updateCurrentPage } from "@/lib/components/CurrentPage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation, useRouter } from "expo-router";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Animated, Text, View, Dimensions, Pressable, StyleSheet } from "react-native";
-import { useUpdateCurrentPage } from '@/lib/components/CurrentPage';
+
 
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -12,6 +13,11 @@ export default function Index() {
   const navigation = useNavigation()
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currenPage, setCurrentPage] = useState<string>('')
+
+
+  useEffect(() => {
+    updateCurrentPage(currenPage);  // Fonksiyonu çağırın
+  }, [currenPage]);
   useEffect(() => {
     const getSavedPage = async () => {
       const savedPage = await AsyncStorage.getItem('currentPage');
@@ -71,7 +77,7 @@ export default function Index() {
       // Son mesaja geldiğinde yönlendir
       if (currentIndex === messages.length - 1) {
         router.push('/MainPages');
-        useUpdateCurrentPage('girildi')
+
       }
     });
   };

@@ -1,23 +1,25 @@
 import { StyleSheet } from 'react-native';
 
 // Tema ayarları
+// Gazete tarzı sade tema
 export const lightTheme = {
-    background: '#ffffff',
-    text: '#000000',
-    buttonBackground: '#ff6347',
-    buttonText: '#fff',
-    navbarselectedPage: 'rgba(169, 181, 220, 0.6)',
-    newsbg: 'rgb(230, 210, 166)'
+    background: '#ffffff',          // Beyaz zemin
+    text: '#000000',                // Siyah yazı
+    buttonBackground: '#000000',    // Siyah buton
+    buttonText: '#ffffff',          // Beyaz buton yazısı
+    navbarselectedPage: '#e0e0e0',  // Açık gri (seçili sayfa)
+    newsbg: '#f8f8f8'               // Soluk gri (haber kutusu arka planı)
 };
 
 export const darkTheme = {
-    background: '#121212',
-    text: '#ffffff',
-    buttonBackground: '#6200ea',
-    buttonText: '#fff',
-    navbarselectedPage: 'rgba(165, 188, 196, 0.8)',
-    newsbg: 'rgb(73, 78, 80)'
+    background: '#000000',          // Siyah zemin
+    text: '#ffffff',                // Beyaz yazı
+    buttonBackground: '#ffffff',    // Beyaz buton
+    buttonText: '#000000',          // Siyah buton yazısı
+    navbarselectedPage: '#333333',  // Koyu gri
+    newsbg: '#1a1a1a'               // Haber kutusu koyu gri tonu
 };
+
 
 // Stil oluşturma fonksiyonu
 export const createStyles = (colortheme: any) => {

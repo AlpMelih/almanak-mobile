@@ -56,76 +56,135 @@ const DateNewsPage = () => {
     };
 
     const styles = StyleSheet.create({
-        container: { flex: 1, padding: 20, backgroundColor: theme.background },
-        sectionTitle: { fontSize: 22, fontWeight: 'bold', marginBottom: 15 },
-        calendarIcon: { alignSelf: 'center', marginVertical: 10 },
-        calendarContainer: {
+        container: {
+            flex: 1,
+            padding: 16,
             backgroundColor: theme.background,
-            padding: 10,
-            borderRadius: 12,
-            elevation: 5,
-            zIndex: 100,
-            marginBottom: 20,
         },
-        infoText: { fontSize: 16, color: theme.text, textAlign: 'center', marginBottom: 10 },
-        newsList: { paddingBottom: 30 },
+        sectionTitle: {
+            fontSize: 24,
+            fontWeight: '700',
+            marginBottom: 16,
+            textAlign: 'center',
+            color: theme.text,
+        },
+        calendarToggleButton: {
+            backgroundColor: theme.newsbg || '#eee',
+            paddingVertical: 12,
+            paddingHorizontal: 16,
+            borderRadius: 12,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 12,
+            elevation: 2,
+            width: 200
+        },
+        calendarToggleText: {
+            color: theme.text,
+            fontWeight: '600',
+            fontSize: 16,
+            marginLeft: 8,
+        },
+        calendarIcon: {
+            fontSize: 18,
+            color: theme.text,
+        },
+        calendarContainer: {
+            backgroundColor: theme.newsbg,
+            padding: 12,
+            borderRadius: 12,
+            marginBottom: 20,
+            elevation: 5,
+        },
+        infoText: {
+            fontSize: 15,
+            color: theme.text,
+            textAlign: 'center',
+            marginVertical: 12,
+        },
+        newsList: {
+            paddingBottom: 30,
+        },
         newsCard: {
             borderRadius: 12,
             overflow: 'hidden',
             marginBottom: 20,
             backgroundColor: theme.newsbg,
+            borderWidth: 1,
+            borderColor: scheme === 'dark' ? '#444' : '#ccc',
             elevation: 3,
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.2,
-            shadowRadius: 4,
-        },
-        newsImage: {
-            width: '100%',
-            height: 180,
         },
         newsTextContainer: {
-            padding: 10,
+            padding: 14,
             backgroundColor: theme.newsbg,
+        }
+        ,
+        newsImage: {
+            width: '100%',
+            height: 200,
         },
+
         newsTitle: {
             fontSize: 18,
-            fontWeight: 'bold',
+            fontWeight: '800',
             color: theme.text,
-            marginBottom: 4,
+            marginBottom: 6,
+            fontFamily: 'serif',
         },
         newsDescription: {
-            fontSize: 14,
+            fontSize: 15,
             color: theme.text,
+            fontFamily: 'Georgia',
             marginBottom: 4,
+            lineHeight: 22,
         },
         newsSource: {
-            fontSize: 12,
-            color: theme.text,
+            fontSize: 13,
+            color: '#666',
+            fontStyle: 'italic',
         },
+
         newsDate: {
-            fontSize: 12,
+            fontSize: 13,
             color: theme.text,
-            marginBottom: 4,
+            marginTop: 2,
         },
         linkButton: {
-            backgroundColor: theme.buttonBackground || '#eee',
-            padding: 8,
+            borderWidth: 1,
+            borderColor: theme.text,
+            paddingVertical: 8,
+            paddingHorizontal: 16,
             borderRadius: 6,
-            marginTop: 6,
-        },
-        calendarToggleButton: {
-            backgroundColor: theme.buttonBackground || '#ccc',
-            padding: 10,
+            marginTop: 8,
             alignItems: 'center',
-            borderRadius: 10,
-            marginBottom: 15,
+            backgroundColor: 'transparent',
         },
-        calendarToggleText: {
+
+        selectedDateBox: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: theme.background,
+            padding: 10,
+            borderRadius: 8,
+            borderWidth: 1,
+            borderColor: theme.text,
+            marginBottom: 10,
+        },
+
+        selectedDateText: {
             color: theme.text,
+            fontSize: 16,
             fontWeight: '600',
+            marginLeft: 8,
         },
+        calendarIconModern: {
+            fontSize: 18,
+            color: theme.text,
+        },
+
     });
+
 
     const renderNewsItem = ({ item }: any) => (
         <View style={[styles.newsCard, { backgroundColor: theme.background }]}>
@@ -151,12 +210,21 @@ const DateNewsPage = () => {
     return (
         <View style={styles.container}>
             <Text style={[styles.sectionTitle, { color: theme.text }]}>Tarihe Göre Haberler</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                {selectedDate && (
+                    <View style={[styles.selectedDateBox, { flexDirection: 'row', marginBottom: 0 }]}>
+                        <FontAwesome name="calendar" style={styles.calendarIconModern} />
+                        <Text style={styles.selectedDateText}>{selectedDate}</Text>
+                    </View>
+                )}
 
-            <TouchableOpacity style={styles.calendarToggleButton} onPress={() => setShowCalendar(!showCalendar)}>
-                <Text style={styles.calendarToggleText}>
-                    {showCalendar ? 'Takvimi Kapat' : 'Takvimi Aç'}
-                </Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={[styles.selectedDateBox, { marginBottom: 0 }]} onPress={() => setShowCalendar(!showCalendar)}>
+                    <Text style={styles.selectedDateText}>
+                        {showCalendar ? 'Kapat' : 'Takvim'}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+
 
             {showCalendar && (
                 <View style={styles.calendarContainer}>
@@ -192,6 +260,8 @@ const DateNewsPage = () => {
                     height: 40,
                     borderRadius: 10,
                     marginBottom: 10,
+
+
                 }}
                 dropDownContainerStyle={{
                     backgroundColor: theme.newsbg,
@@ -201,9 +271,8 @@ const DateNewsPage = () => {
                 }}
             />
 
-            {selectedDate && (
-                <Text style={styles.infoText}>Seçilen Tarih: {selectedDate}</Text>
-            )}
+
+
 
             {isLoading && page === 1 && (
                 <ActivityIndicator size="large" color={theme.text} style={{ marginTop: 20 }} />
@@ -216,6 +285,7 @@ const DateNewsPage = () => {
             {!error && selectedDate && (
                 filteredNews.length > 0 ? (
                     <FlatList
+                        style={{ paddingTop: 10, marginTop: 10 }}
                         data={filteredNews}
                         keyExtractor={(item, index) => item.id?.toString() || index.toString()}
                         renderItem={renderNewsItem}

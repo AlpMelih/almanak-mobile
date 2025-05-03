@@ -63,46 +63,56 @@ const SearchPage = () => {
             overflow: 'hidden',
             marginBottom: 20,
             backgroundColor: theme.newsbg,
+            borderWidth: 1,
+            borderColor: scheme === 'dark' ? '#444' : '#ccc',
             elevation: 3,
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.2,
-            shadowRadius: 4,
-        },
-        newsImage: {
-            width: '100%',
-            height: 180,
         },
         newsTextContainer: {
-            padding: 10,
+            padding: 14,
             backgroundColor: theme.newsbg,
+        }
+        ,
+        newsImage: {
+            width: '100%',
+            height: 200,
         },
+
         newsTitle: {
             fontSize: 18,
-            fontWeight: 'bold',
+            fontWeight: '800',
             color: theme.text,
-            marginBottom: 4,
+            marginBottom: 6,
+            fontFamily: 'serif',
         },
         newsDescription: {
-            fontSize: 14,
+            fontSize: 15,
             color: theme.text,
+            fontFamily: 'Georgia',
             marginBottom: 4,
+            lineHeight: 22,
         },
         newsSource: {
-            fontSize: 12,
-            color: theme.text,
+            fontSize: 13,
+            color: '#666',
+            fontStyle: 'italic',
         },
+
         newsDate: {
-            fontSize: 12,
+            fontSize: 13,
             color: theme.text,
-            marginBottom: 4,
+            marginTop: 2,
         },
         linkButton: {
-            backgroundColor: theme.buttonBackground || '#eee',
-            padding: 8,
+            borderWidth: 1,
+            borderColor: theme.text,
+            paddingVertical: 8,
+            paddingHorizontal: 16,
             borderRadius: 6,
-            marginTop: 6,
+            marginTop: 8,
+            alignItems: 'center',
+            backgroundColor: 'transparent',
         },
+
     });
 
     const renderNewsItem = ({ item }: { item: any }) => (
@@ -139,7 +149,7 @@ const SearchPage = () => {
                     value={searchInput}
                     onChangeText={setSearchInput}
                     placeholder="Search news..."
-                    placeholderTextColor={theme.background   || '#888'} // varsa kullan
+                    placeholderTextColor={theme.background || '#888'} // varsa kullan
                 />
 
                 <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>

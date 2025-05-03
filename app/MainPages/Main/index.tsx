@@ -34,50 +34,82 @@ const MainPage = () => {
         container: { flex: 1, padding: 20, backgroundColor: theme.background },
         sectionTitle: { fontSize: 22, fontWeight: 'bold' },
         categoryList: { marginBottom: 60 },
-        categoryCard: { padding: 10, margin: 5, borderRadius: 10, width: 120 },
-        categoryImage: { width: 100, height: 100, borderRadius: 10, marginBottom: 10 },
-        categoryText: { fontSize: 16, fontWeight: '600' },
+        categoryCard: {
+            padding: 8,
+            marginRight: 12,
+            borderRadius: 12,
+            width: 90,
+            alignItems: 'center',
+            backgroundColor: scheme === 'dark' ? '#333' : '#f2f2f2',
+            elevation: 2,
+        },
+        categoryImage: {
+            width: 60,
+            height: 60,
+            borderRadius: 30,
+            marginBottom: 6,
+        },
+        categoryText: {
+            fontSize: 14,
+            fontWeight: '600',
+            textAlign: 'center',
+        },
         newsList: { paddingBottom: 30 },
         newsCard: {
             borderRadius: 12,
             overflow: 'hidden',
             marginBottom: 20,
             backgroundColor: theme.newsbg,
+            borderWidth: 1,
+            borderColor: scheme === 'dark' ? '#444' : '#ccc',
             elevation: 3,
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.2,
-            shadowRadius: 4,
-        },
-        newsImage: {
-            width: '100%',
-            height: 180,
         },
         newsTextContainer: {
-            padding: 10,
+            padding: 14,
             backgroundColor: theme.newsbg,
+        }
+        ,
+        newsImage: {
+            width: '100%',
+            height: 200,
         },
+
         newsTitle: {
             fontSize: 18,
-            fontWeight: 'bold',
+            fontWeight: '800',
             color: theme.text,
-            marginBottom: 4,
+            marginBottom: 6,
+            fontFamily: 'serif',
         },
         newsDescription: {
-            fontSize: 14,
+            fontSize: 15,
             color: theme.text,
+            fontFamily: 'Georgia',
             marginBottom: 4,
+            lineHeight: 22,
         },
         newsSource: {
-            fontSize: 12,
-            color: theme.text,
+            fontSize: 13,
+            color: '#666',
+            fontStyle: 'italic',
         },
+
         newsDate: {
-            fontSize: 12,
+            fontSize: 13,
             color: theme.text,
-            marginBottom: 4,
+            marginTop: 2,
         },
-        linkButton: { backgroundColor: theme.buttonBackground, padding: 10 },
+        linkButton: {
+            borderWidth: 1,
+            borderColor: theme.text,
+            paddingVertical: 8,
+            paddingHorizontal: 16,
+            borderRadius: 6,
+            marginTop: 8,
+            alignItems: 'center',
+            backgroundColor: 'transparent',
+        },
+
     });
 
     useEffect(() => {
@@ -119,9 +151,13 @@ const MainPage = () => {
                 <Text style={[styles.newsDescription, { color: theme.text }]}>{item.description}</Text>
                 <Text style={[styles.newsSource, { color: theme.text }]}>{item.source}</Text>
                 <Text style={[styles.newsDate, { color: theme.text }]}>{item.publishDate}</Text>
+
                 <TouchableOpacity style={styles.linkButton} onPress={() => Linking.openURL(item.url)}>
-                    <Text style={[styles.newsDate, { color: theme.text }]}>HABERE GİT</Text>
+                    <Text style={[styles.newsDate, { color: theme.text, fontWeight: '600' }]}>
+                        📰 Haberi Oku
+                    </Text>
                 </TouchableOpacity>
+
             </View>
         </View>
     );

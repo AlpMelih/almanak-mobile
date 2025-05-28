@@ -209,7 +209,7 @@ const DateNewsPage = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={[styles.sectionTitle, { color: theme.text }]}>Tarihe Göre Haberler</Text>
+            <Text style={[styles.sectionTitle, { color: theme.text }]}>News by Date</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                 {selectedDate && (
                     <View style={[styles.selectedDateBox, { flexDirection: 'row', marginBottom: 0 }]}>
@@ -220,7 +220,7 @@ const DateNewsPage = () => {
 
                 <TouchableOpacity style={[styles.selectedDateBox, { marginBottom: 0 }]} onPress={() => setShowCalendar(!showCalendar)}>
                     <Text style={styles.selectedDateText}>
-                        {showCalendar ? 'Kapat' : 'Takvim'}
+                        {showCalendar ? 'Close' : 'Date'}
                     </Text>
                 </TouchableOpacity>
             </View>

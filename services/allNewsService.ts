@@ -19,3 +19,11 @@ export const getNewsWithRoot = (text: string) => {
         params: { text } // Sending 'text' as a query parameter
     });
 };
+export const getTechNews = (page: number) => {
+    return apiClient.get(`/news/Tech-news/${page}`);
+};
+export const getFavoriteNews = async (categories: string[]) => {
+    return apiClient.post('/news/today-favorites', {
+        categories,
+    });
+}

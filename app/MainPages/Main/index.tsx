@@ -1,25 +1,42 @@
 import { View, Text, FlatList, Image, StyleSheet, useColorScheme, ActivityIndicator, TouchableOpacity, Linking } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { lightTheme, darkTheme } from '../../styles';
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import Bottombar from '../../../lib/components/tabbar/Bottombar';
-import { useNews, useFinanceNews, useSportsNews } from '@/hooks/useAllNews';
+import { useNews, useFinanceNews, useSportsNews, useTechNews, useFavorites } from '@/hooks/useAllNews';
+import { FontAwesome } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const categories = [
-    { name: 'TÜM', image: 'https://cdn-icons-png.flaticon.com/512/1021/1021262.png' },
+    { name: 'ALL', image: 'https://cdn-icons-png.flaticon.com/512/1021/1021262.png' },
     { name: 'SPORT', image: 'https://st5.depositphotos.com/10894906/75286/i/450/depositphotos_752867598-stock-photo-set-sport-equipment-rackets-tennis.jpg' },
     { name: 'FİNANCE', image: 'https://st3.depositphotos.com/3703765/31743/i/450/depositphotos_317431894-stock-photo-financial-stock-market-graph-and.jpg' },
+    { name: 'TECH', image: 'https://www.alastyr.com/blog/wp-content/uploads/2020/08/gelecegin-teknolojileri.jpg.webp' },
 ];
 
 const MainPage = () => {
+    const loadCategoriesFromStorage = async () => {
+        try {
+            const stored = await AsyncStorage.getItem('SELECTED_CATEGORIES0');
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                setStoredCat(parsed)
+
+            }
+        } catch (error) {
+            console.error('Kategoriler yüklenirken hata:', error);
+        }
+    };
+    const [storedCat, setStoredCat] = useState<any>([])
+    const { data: favNewsData, FavNewsisLoading, FavNewsisError }: any = useFavorites(storedCat);
+
     const navigation = useNavigation();
     const scheme = useColorScheme();
     const theme = scheme === 'dark' ? darkTheme : lightTheme;
 
     const [page, setPage] = useState(1);
-    const [selectedCategory, setSelectedCategory] = useState<string>('TÜM');
+    const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
     const [allNews, setAllNews] = useState<any[]>([]);
-
     const {
         data: newsData,
         isLoading,
@@ -28,10 +45,13 @@ const MainPage = () => {
             ? useFinanceNews(page)
             : selectedCategory === 'SPORT'
                 ? useSportsNews(page)
-                : useNews(page);
+                : selectedCategory === 'TECH'
+                    ? useTechNews(page)
+                    : useNews(page);
 
     const styles = StyleSheet.create({
         container: { flex: 1, padding: 20, backgroundColor: theme.background },
+        categoryTitleContainer: { justifyContent: 'space-between', flexDirection: 'row' },
         sectionTitle: { fontSize: 22, fontWeight: 'bold' },
         categoryList: { marginBottom: 60 },
         categoryCard: {
@@ -113,6 +133,7 @@ const MainPage = () => {
     });
 
     useEffect(() => {
+        loadCategoriesFromStorage()
         navigation.setOptions({ headerShown: false });
     }, [navigation]);
 
@@ -179,14 +200,41 @@ const MainPage = () => {
     if (isError) {
         return (
             <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-                <Text style={{ color: theme.text }}>Bir hata oluştu. Tekrar deneyin.</Text>
+                <Text style={{ color: theme.text }}>An error occurred. Try again.</Text>
             </View>
         );
     }
 
     return (
         <View style={[styles.container]}>
-            <Text style={[styles.sectionTitle, { color: theme.text }]}>Kategoriler</Text>
+            <View style={[styles.categoryTitleContainer]}>
+                <Text style={[styles.sectionTitle, { color: theme.text }]}>
+                    Categories</Text>
+                <View style={{ position: 'relative' }}>
+                    <TouchableOpacity onPress={() => { router.push('/MainPages/FavoriteCategories') }}>
+                        <FontAwesome name='book' size={32} color={theme.buttonBackground} />
+                    </TouchableOpacity>
+
+                    {/* Badge */}
+                    <View
+                        style={{
+                            position: 'absolute',
+                            top: -4,
+                            right: -4,
+                            backgroundColor: 'red',
+                            borderRadius: 10,
+                            width: 18,
+                            height: 18,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text style={{ color: 'white', fontSize: 11, fontWeight: 'bold' }}>{favNewsData?.totalItems}</Text>
+                    </View>
+                </View>
+
+            </View>
+
 
             <FlatList
                 data={categories}
@@ -198,7 +246,7 @@ const MainPage = () => {
             />
 
             <Text style={[styles.sectionTitle, { color: theme.text }]}>
-                {selectedCategory} Haberleri
+                {selectedCategory} NEWS
             </Text>
 
             <FlatList

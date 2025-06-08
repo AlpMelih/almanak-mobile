@@ -126,7 +126,7 @@ const SearchPage = () => {
                         { backgroundColor: '#ccc', justifyContent: 'center', alignItems: 'center' },
                     ]}
                 >
-                    <Text>Resim Yok</Text>
+                    <Text>No image</Text>
                 </View>
             )}
             <View style={styles.newsTextContainer}>

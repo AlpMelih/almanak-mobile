@@ -192,7 +192,7 @@ const DateNewsPage = () => {
                 <Image source={{ uri: item.image }} style={styles.newsImage} />
             ) : (
                 <View style={[styles.newsImage, { backgroundColor: '#ccc', justifyContent: 'center', alignItems: 'center' }]}>
-                    <Text>Resim Yok</Text>
+                    <Text>No image</Text>
                 </View>
             )}
             <View style={styles.newsTextContainer}>
